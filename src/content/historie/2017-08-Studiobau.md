@@ -3,10 +3,10 @@ title: "Erster Livestream"
 date: 2016-11
 description: "Erster Livestream auf Twitch"
 gallery: [
-  "../../assets/images/grundriss-vorher.png",
-  "../../assets/images/grundriss-nachher.png", 
-  "../../assets/images/rohbau-vorher.jpg", 
-  "../../assets/images/rohbau-nachher.jpg", 
+  "../../assets/images/studiobau/grundriss-vorher.png",
+  "../../assets/images/studiobau/grundriss-nachher.png",
+  "../../assets/images/studiobau/rohbau-vorher.jpg",
+  "../../assets/images/studiobau/rohbau-nachher.jpg",
   ]
 milestone: true
 tags: ["Gründung", "StarCraft II", "Hamburg"]

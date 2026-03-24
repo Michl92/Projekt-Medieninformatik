@@ -35,6 +35,13 @@
 - **Data Source:** Local Markdown files in `src/content/historie/`.
 - **View Transitions:** Use the `<ViewTransitions />` component for seamless navigation.
 
+## Tailwind CSS v4 Standards
+- **CSS-First:** Use `@import "tailwindcss";` in global CSS. Do not use legacy `@tailwind` directives.
+- **Theme Variables:** Define custom colors and fonts inside the `@theme` block in CSS, not in a separate `tailwind.config.js`.
+- **Modern Syntax:** Use the new v4 shorthand for gradients, spacing, and dynamic offsets.
+- **Color Palette:** Always use the project-defined colors: `bonjwa-blue`, `bonjwa-dark`, `bonjwa-orange`, and `bonjwa-accent`.
+- **In-file Styling:** Prefer utility classes in Astro components. Avoid `@apply` unless repetitive logic is needed.
+
 ## Instructions for Copilot
 - If a suggested pattern is deprecated in Astro 6, provide the modern alternative immediately.
 - Favor clean, modular code over monolithic components.

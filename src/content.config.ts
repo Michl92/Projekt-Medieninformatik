@@ -24,10 +24,10 @@ const sections = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/sections" }),
   schema: ({ image }) => z.object({
     title: z.string(),
-    subtitle: z.string(),
-    backgroundImage: image(),
-    ctaText: z.string(),
-    ctaUrl: z.string().url(),
+    subtitle: z.string().optional(),
+    backgroundImage: image().optional(),
+    ctaText: z.string().optional(),
+    ctaUrl: z.string().url().optional(),
 
     // Felder für die Stats-Sektion (dynamisch via API)
     stats: z.array(z.object({
