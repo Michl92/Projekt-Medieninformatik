@@ -25,11 +25,16 @@ const sections = defineCollection({
   schema: ({ image }) => z.object({
     title: z.string(),
     subtitle: z.string().optional(),
-    backgroundImage: image().optional(),
+    backgroundImage: image(),
     ctaText: z.string().optional(),
     ctaUrl: z.string().url().optional(),
+  }),
+});
 
-    // Felder für die Stats-Sektion (dynamisch via API)
+const stats = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/sections" }),
+  schema: z.object({
+        // Felder für die Stats-Sektion (dynamisch via API)
     stats: z.array(z.object({
       label: z.string(),
       apiField: z.string(),
@@ -38,4 +43,4 @@ const sections = defineCollection({
   }),
 });
 
-export const collections = { historie, sections };
+export const collections = { historie, sections, stats };
