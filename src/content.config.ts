@@ -32,7 +32,7 @@ const sections = defineCollection({
 });
 
 const stats = defineCollection({
-  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/sections" }),
+  loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: "./src/content/twitchtracker" }),
   schema: z.object({
         // Felder für die Stats-Sektion (dynamisch via API)
     stats: z.array(z.object({

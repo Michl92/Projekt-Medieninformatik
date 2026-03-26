@@ -4,3 +4,30 @@ body {
   margin: 0;
   padding: 0;
 }
+
+@theme {
+  /* Wir definieren die Farben direkt im CSS-Theme */
+  --color-bonjwa-green: #1e9761;
+  --color-bonjwa-dark: #0f5636;
+  --color-bonjwa-orange: #ff8a00;
+  --color-bonjwa-accent: #2be994;
+
+  /* Fonts (Achtest du darauf, dass sie im Layout geladen werden?) */
+  --font-display: "Orbitron", sans-serif;
+  --font-sans: "Inter", sans-serif;
+
+  /* Custom Glow-Effekte direkt als Utility */
+  --shadow-blue-glow: 0 0 15px rgba(0, 85, 170, 0.4);
+  --shadow-orange-glow: 0 0 20px rgba(255, 138, 0, 0.5);
+}
+
+/* Basis-Styling für den Gaming-Look */
+@layer base {
+  body {
+    @apply bg-bonjwa-dark text-white antialiased font-sans;
+  }
+  
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+}

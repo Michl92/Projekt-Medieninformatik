@@ -1,8 +1,15 @@
 ---
-import Navigation from "../components/Navigation.astro";
+import Layout from '../layouts/Layout.astro';
 import Hero from "../components/Hero.astro";
-import "../styles/global.css";
+import Historie from "../components/Historie.astro";
+import TwitchStats from "../components/TwitchStats.astro";
 ---
 
-<Hero />
+<Layout title="Bonjwa Historie | Projekt">
+	<main>
+		<Hero />
+		<Historie />
+        <TwitchStats />
+	</main>
+</Layout>
 

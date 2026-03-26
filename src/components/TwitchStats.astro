@@ -1,0 +1,70 @@
+<section class="py-12 px-4 bg-bonjwa-dark/50 border-t border-white/5">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="font-display text-2xl mb-8 text-center text-bonjwa-accent uppercase tracking-widest">
+      Bonjwa Statistiken der letzten 30 Tage
+    </h2>
+    
+    <a href="https://twitch.tv/bonjwa" target="_blank" class="block group">
+      <div class="bg-black/40 backdrop-blur-sm border border-white/10 p-6 rounded-3xl hover:border-bonjwa-orange/50 transition-all duration-500 shadow-blue-glow">
+        
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          
+          <div class="flex flex-col items-center md:items-start p-4 bg-white/5 rounded-2xl">
+            <span class="text-[10px] uppercase tracking-tighter text-gray-400 mb-1">Neue Follower</span>
+            <span id="stat-followers" class="text-3xl font-display text-white">---</span>
+          </div>
+
+          <div class="flex flex-col items-center md:items-start p-4 bg-white/5 rounded-2xl">
+            <span class="text-[10px] uppercase tracking-tighter text-gray-400 mb-1">Durschnittliche Viewer</span>
+            <span id="stat-views" class="text-3xl font-display text-white">---</span>
+          </div>
+
+          <div class="flex flex-col items-center md:items-start p-4 bg-bonjwa-orange/10 rounded-2xl border border-bonjwa-orange/20">
+            <span class="text-[10px] uppercase tracking-tighter text-gray-400 mb-1">Maximale gleichzeitige Viewer</span>
+            <span id="stat-max-viewers" class="text-xl font-display text-white truncate w-full text-center md:text-left">Lade Daten...</span>
+          </div>
+
+          <div class="flex flex-col items-center md:items-start p-4 bg-bonjwa-orange/10 rounded-2xl border border-bonjwa-orange/20">
+            <span class="text-[10px] uppercase tracking-tighter text-gray-400 mb-1">Gestreamte Minuten</span>
+            <span id="minutes-streamed" class="text-xl font-display text-white truncate w-full text-center md:text-left">Lade Daten...</span>
+          </div>
+
+        </div>
+
+        <div class="mt-6 flex justify-center items-center gap-2 text-sm text-gray-400 group-hover:text-white transition-colors">
+          <span>Besuche bonjwa.tv auf Twitch</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<script>
+  async function loadTwitchTrackerData() {
+    const followersEl = document.getElementById('stat-followers');
+    const viewsEl = document.getElementById('stat-views');
+    const maxViewersEl = document.getElementById('stat-max-viewers');
+    const minStreamed = document.getElementById('minutes-streamed');
+
+    try {
+      const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=';
+      const targetUrl = encodeURIComponent('https://twitchtracker.com/api/channels/summary/bonjwa');
+      
+      const response = await fetch(`${proxyUrl}${targetUrl}`);
+      const data = await response.json();
+
+      if (data) {
+        // Wir füllen die Felder mit dem, was die API hergibt
+        if (followersEl) followersEl.textContent = data.followers?.toLocaleString() || "N/A";
+        if (viewsEl) viewsEl.textContent = data.avg_viewers?.toLocaleString() || "N/A";
+        if (maxViewersEl) maxViewersEl.textContent = data.max_viewers?.toLocaleString() || "N/A";
+        if (minStreamed) minStreamed.textContent = data.minutes_streamed || "Abgeschlossen";
+      }
+    } catch (e) {
+      console.error("Daten konnten nicht geladen werden", e);
+    }
+  }
+
+  loadTwitchTrackerData();
+</script>
