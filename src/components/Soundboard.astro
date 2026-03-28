@@ -1,0 +1,116 @@
+---
+import { Image } from 'astro:assets';
+
+// 1. Bilder importieren (aus src/assets)
+import faceAster from '../assets/images/einzelfoto/aster.png';
+import faceLeon from '../assets/images/einzelfoto/leon.png';
+import faceMatteo from '../assets/images/einzelfoto/matteo.png';
+import faceNiklas from '../assets/images/einzelfoto/niklas.png';
+
+// 2. Datenstruktur für die Sounds definieren
+const sounds = [
+  { 
+    name: 'Aster', 
+    quote: 'Nichts gemacht!', 
+    image: faceAster, 
+    audio: '/sounds/Aster-nichts_gemacht.mp3' 
+  },
+  { 
+    name: 'Leon', 
+    quote: 'Nicht gesehen!', 
+    image: faceLeon, 
+    audio: '/sounds/Leon-nicht_gesehen.mp3' 
+  },
+  { 
+    name: 'Matteo', 
+    quote: 'Ich weine!', 
+    image: faceMatteo, 
+    audio: '/sounds/Matteo-weine.mp3' 
+  },
+  { 
+    name: 'Niklas', 
+    quote: 'Oh Nein!', 
+    image: faceNiklas, 
+    audio: '/sounds/Niklas-oh_nein.mp3' 
+  },
+  // Füge hier weitere Sounds nach dem gleichen Muster hinzu
+];
+---
+
+<section class="py-16 px-4 bg-bonjwa-dark/30 border-t border-white/5">
+  <div class="max-w-6xl mx-auto">
+    
+    <div class="text-center mb-12">
+      <h2 class="font-display text-3xl text-white uppercase tracking-widest mb-2">
+        Bonjwa <span class="text-bonjwa-accent">Soundboard</span>
+      </h2>
+      <p class="text-gray-400 max-w-md mx-auto">
+        Klicke auf ein Gesicht, um legendäre Zitate abzuspielen. Lautsprecher an!
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      {sounds.map((sound) => (
+        <button 
+          class="sound-btn group relative overflow-hidden bg-black/40 border border-white/10 rounded-3xl p-4 transition-all duration-300 hover:border-bonjwa-orange/50 hover:shadow-orange-glow hover:-translate-y-1 active:scale-95"
+          data-audio={sound.audio}
+        >
+          <div class="flex flex-col items-center gap-4">
+            
+            <div class="relative w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-bonjwa-accent/50 transition-colors">
+              <Image 
+                src={sound.image} 
+                alt={sound.name} 
+                width={200} 
+                height={200}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+            </div>
+
+            <div class="text-center">
+              <p class="font-display text-lg text-white group-hover:text-bonjwa-orange">{sound.name}</p>
+              <p class="text-sm text-gray-400 italic">"{sound.quote}"</p>
+            </div>
+
+            <div class="absolute inset-0 bg-bonjwa-orange/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+          </div>
+        </button>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // JavaScript für die Audio-Logik
+  const buttons = document.querySelectorAll('.sound-btn');
+  let currentAudio: HTMLAudioElement | null = null; // Um zu verhindern, dass Sounds übereinanderlappen
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const audioUrl = btn.getAttribute('data-audio');
+      
+      if (!audioUrl) return;
+
+      // Falls schon ein Sound spielt: Stoppen
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      // Neuen Sound abspielen
+      currentAudio = new Audio(audioUrl);
+      currentAudio.play().catch(error => {
+        console.error("Audio konnte nicht abgespielt werden. Ggf. Browser-Blockierung?", error);
+      });
+
+      // Visuelles Feedback (Kachel pulsiert kurz)
+      btn.classList.add('animate-pulse');
+      currentAudio.onended = () => {
+        btn.classList.remove('animate-pulse');
+      };
+    });
+  });
+</script>

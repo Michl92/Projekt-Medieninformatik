@@ -18,4 +18,4 @@ Der Versuch sich mit der deutschen E-Sport-Plattform "Starcraftschule" zu fusini
 
 ### Clip Beschreibung
 
-Der Clip zeigt einen Auszug aus einem Stream im Jahr 2026, der den Humor von Niklas und Bonjwa wieder spiegelt.
+Das erste Video für die das neue League of Legends Format mit Niklas(Honor) und SawadasTV.

@@ -1,0 +1,41 @@
+<div id="gatekeeper" class="fixed inset-0 z-[100] bg-bonjwa-dark flex items-center justify-center p-4">
+  <div class="bg-black/60 border border-bonjwa-accent p-8 rounded-3xl max-w-md w-full text-center shadow-orange-glow">
+    <h2 class="font-display text-2xl text-white mb-6 uppercase">Zugang Verifizieren</h2>
+    <p class="text-gray-400 mb-6 text-sm">Bitte gib das Community-Passwort ein, um die Historie freizuschalten.</p>
+    
+    <input 
+      type="password" 
+      id="pw-input" 
+      placeholder="Passwort..." 
+      class="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white mb-4 focus:border-bonjwa-orange outline-none transition-all"
+    />
+    
+    <button id="pw-submit" class="w-full bg-bonjwa-orange text-white font-bold py-3 rounded-xl hover:scale-105 transition-transform">
+      Einloggen
+    </button>
+    <p id="pw-error" class="text-red-500 text-xs mt-4 hidden">Falsches Passwort! Tipp: Gründungssjahr?</p>
+  </div>
+</div>
+
+<script>
+  const gatekeeper = document.getElementById('gatekeeper');
+  const input = document.getElementById('pw-input') as HTMLInputElement;
+  const submit = document.getElementById('pw-submit');
+  const error = document.getElementById('pw-error');
+
+  // Prüfen, ob der User schon eingeloggt war (SessionStorage)
+  if (sessionStorage.getItem('bonjwa_access') === 'true') {
+    gatekeeper?.classList.add('hidden');
+  }
+
+  submit?.addEventListener('click', () => {
+    if (input.value === '2013') { // Dein Passwort
+      sessionStorage.setItem('bonjwa_access', 'true');
+      gatekeeper?.classList.add('animate-out', 'fade-out', 'zoom-out-95', 'duration-500');
+      setTimeout(() => gatekeeper?.classList.add('hidden'), 500);
+    } else {
+      error?.classList.remove('hidden');
+      input.classList.add('border-red-500', 'animate-shake');
+    }
+  });
+</script>

@@ -2,13 +2,17 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from "../components/Hero.astro";
 import Historie from "../components/Historie.astro";
+import Soundboard from '../components/Soundboard.astro';
 import TwitchStats from "../components/TwitchStats.astro";
+import Login from '../components/Login.astro';
 ---
 
 <Layout title="Bonjwa Historie | Projekt">
 	<main>
+		<Login />
 		<Hero />
 		<Historie />
+		<Soundboard />
         <TwitchStats />
 	</main>
 </Layout>
