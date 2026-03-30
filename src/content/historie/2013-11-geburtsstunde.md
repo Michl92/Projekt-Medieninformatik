@@ -3,7 +3,6 @@ title: "Die Geburtsstunde von Bonjwa"
 date: 2013-11-01
 description: "Wie aus einer Leidenschaft für StarCraft II eine Akademie wurde."
 twitchClipId: "FilthyLongUdonBrainSlug-PuAo_kCNFPD6v61A"
-milestone: true
 tags: ["Gründung", "StarCraft II", "Hamburg"]
 ---
 

@@ -30,4 +30,16 @@ body {
   h1, h2, h3, h4 {
     @apply font-display;
   }
+
+  /* Klasse für das Ausblenden mit weichem Übergang */
+  .historie-item.hidden-item {
+    display: none;
+  }
+  
+  .filter-btn.active {
+    background-color: var(--color-bonjwa-orange); /* bonjwa-orange */
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 94, 0, 0.3);
+  }
+
 }

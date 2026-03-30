@@ -4,7 +4,6 @@ date: 2014-12
 description: "Bonjwa erweiter sein Angebot mit Spielen wie League of Legends und versuch die Fusion mit der Starcraftschule"
 twitchClipId: ""
 youtubeVideoId: "i-1MofpjPd0"
-milestone: true
 tags: ["Idee", "StarCraft II", "Hamburg"]
 ---
 

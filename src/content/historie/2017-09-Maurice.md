@@ -3,7 +3,6 @@ title: "Maurice tritt Bonjwa bei"
 date: 2017-09
 description: "Maurice wird Prokut-Manager bei Bonjwa"
 twitchClipId: "DeadBlindingCockroachDoggo-apLb13qk7xC-WArC"
-milestone: true
 tags: ["Produkt-Manager", "Angestellter", "Hamburg"]
 ---
 

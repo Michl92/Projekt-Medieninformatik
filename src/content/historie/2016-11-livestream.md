@@ -4,7 +4,6 @@ date: 2016-11
 description: "Erster Livestream auf Twitch"
 twitchClipId: ""
 youtubeVideoId: "Xq73sQeFZWs"
-milestone: true
 tags: ["Gründung", "StarCraft II", "Hamburg"]
 ---
 

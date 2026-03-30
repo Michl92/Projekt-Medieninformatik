@@ -3,7 +3,6 @@ title: "Die Gründung von Bonjwa UG"
 date: 2015-10
 description: "Gründung einer Firma"
 cover: "../../assets/images/logo/Bonjwa-logo.png"
-milestone: true
 tags: ["Gründung", "StarCraft II", "Hamburg"]
 ---
 

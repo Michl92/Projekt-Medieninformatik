@@ -3,7 +3,6 @@ title: "Bonjwa gründet eigene Modemarke Bonfyr"
 date: 2025-10
 description: "Bonwja gründet Bonfyr"
 cover: "../../assets/images/bonfyr/bonfyr.jpg"
-milestone: true
 tags: ["Bonfyr", "Modemarke", "Hamburg"]
 ---
 

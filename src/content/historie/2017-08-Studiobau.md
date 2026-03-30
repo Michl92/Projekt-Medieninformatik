@@ -10,7 +10,6 @@ gallery: [
   "../../assets/images/studiobau/kueche.jpg",
   "../../assets/images/studiobau/streaming-raum.jpg",
   ]
-milestone: true
 tags: ["Gründung", "StarCraft II", "Hamburg"]
 ---
 

@@ -26,7 +26,7 @@
 
           <div class="flex flex-col items-center md:items-start p-4 bg-white/5 rounded-2xl">
             <span class="text-[10px] uppercase tracking-tighter text-gray-400 mb-1">Gestreamte Minuten</span>
-            <span id="minutes-streamed" class="text-xl font-display text-white truncate w-full text-center md:text-left">Lade Daten...</span>
+            <span id="stat-minutes-streamed" class="text-xl font-display text-white truncate w-full text-center md:text-left">Lade Daten...</span>
           </div>
 
         </div>
@@ -45,7 +45,7 @@
     const followersEl = document.getElementById('stat-followers');
     const viewsEl = document.getElementById('stat-views');
     const maxViewersEl = document.getElementById('stat-max-viewers');
-    const minStreamed = document.getElementById('minutes-streamed');
+    const minStreamedEl = document.getElementById('stat-minutes-streamed');
 
     try {
       const proxyUrl = 'https://api.codetabs.com/v1/proxy?quest=';
@@ -55,11 +55,10 @@
       const data = await response.json();
 
       if (data) {
-        // Wir füllen die Felder mit dem, was die API hergibt
         if (followersEl) followersEl.textContent = data.followers?.toLocaleString() || "N/A";
         if (viewsEl) viewsEl.textContent = data.avg_viewers?.toLocaleString() || "N/A";
         if (maxViewersEl) maxViewersEl.textContent = data.max_viewers?.toLocaleString() || "N/A";
-        if (minStreamed) minStreamed.textContent = data.minutes_streamed || "Abgeschlossen";
+        if (minStreamedEl) minStreamedEl.textContent = data.minutes_streamed?.toLocaleString() || "N/A";
       }
     } catch (e) {
       console.error("Daten konnten nicht geladen werden", e);
