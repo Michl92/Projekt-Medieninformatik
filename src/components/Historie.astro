@@ -83,12 +83,11 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
             {entry.data.twitchClipId && (
               <div class="mb-6 rounded-lg overflow-hidden bg-black">
                 <iframe
-                  src={`https://clips.twitch.tv/embed?clip=${entry.data.twitchClipId}&parent=projekt-medieninformatik.vercel.app&autoplay=false`}
+                  src={`https://clips.twitch.tv/embed?clip=${entry.data.twitchClipId}&parent=projekt-medieninformatik.vercel.app&autoplay=false&origin=https://projekt-medieninformatik.vercel.app`}
                   height="400"
                   width="100%"
-                  allow="autoplay; fullscreen"
-                  sandbox="allow-all-origin; allow-scripts; allow-forms; allow-popups; allow-popups-to-escape-sandbox; allow-same-origin"
-                  allowfullscreen
+                  allowfullscreen="true"
+                  loading="lazy"
                 >
                 </iframe>
               </div>
