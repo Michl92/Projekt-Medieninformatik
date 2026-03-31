@@ -44,11 +44,13 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
         // Im Frontmatter deiner Astro-Komponente
         const { twitchClipId } = entry.data;
 
+        const embedUrlBase = `https://clips.twitch.tv/embed?clip=${twitchClipId}&autoplay=true&muted=false`;
+
         // Eindeutige ID für den Container generieren
         const containerId = `twitch-container-${twitchClipId}`;
 
         const thumbnailUrl = `https://clips-media-assets2.twitch.tv/${twitchClipId}-preview-480x272.jpg`;
-        const embedUrl = `https://clips.twitch.tv/embed?clip=${twitchClipId}&parent=projekt-medieninformatik.vercel.app&parent=localhost&autoplay=true&muted=false`;
+        const embedUrl = `https://clips.twitch.tv/embed?clip=${twitchClipId}&parent=  projekt-medieninformatik-1wc1e9nio-michls-projects.vercel.app/&parent=localhost&autoplay=true&muted=false`;
 
         return (
           <div 
@@ -89,10 +91,9 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
             <StudiobauCard entry={entry} />
 
             {entry.data.twitchClipId && (
-             <div id={containerId} 
+             <div id={containerId}  
                 class="twitch-facade-container relative w-full aspect-video bg-black rounded-xl overflow-hidden cursor-pointer group border border-white/10 shadow-lg"
-                data-embed-url={embedUrl}>
-              
+                data-embed-url={embedUrlBase}>
               <img 
                 src={thumbnailUrl} 
                 alt="Twitch Clip Vorschau" 
@@ -107,16 +108,21 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
               </div>
             </div>
 
-            <script is:inline define:vars={{ containerId }}>
-              // WICHTIG: Wir holen uns nur DIESEN EINEN Container
+           <script is:inline define:vars={{ containerId }}>
               const facade = document.getElementById(containerId);
 
               if (facade) {
                 facade.addEventListener('click', function() {
-                  const embedUrl = this.getAttribute('data-embed-url');
+                  const embedUrlBase = this.getAttribute('data-embed-url');
+                  
+                  // DER TRICK: Wir nehmen die aktuelle Domain des Browsers (ohne Port/Protokoll)
+                  const currentHost = window.location.hostname;
+                  
+                  // Wir bauen die finale URL mit dem dynamischen Host als Parent
+                  const finalUrl = `${embedUrlBase}&parent=${currentHost}&parent=localhost`;
                   
                   const iframe = document.createElement('iframe');
-                  iframe.setAttribute('src', embedUrl);
+                  iframe.setAttribute('src', finalUrl);
                   iframe.setAttribute('class', 'absolute inset-0 w-full h-full');
                   iframe.setAttribute('allowfullscreen', 'true');
                   iframe.setAttribute('allow', 'autoplay; fullscreen');
