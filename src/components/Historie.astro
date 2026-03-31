@@ -10,6 +10,9 @@ const sortedEntries = historieEntries.sort((a, b) =>
 
 // Alle einzigartigen Tags sammeln für die Filter-Buttons
 const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].sort();
+
+const isProd = import.meta.env.PROD;
+const domain = isProd ? 'deine-projekt-name.vercel.app' : 'localhost';
 ---
 
 <section class="py-16 px-4 bg-bonjwa-dark/30 border-t border-white/5">
@@ -83,7 +86,7 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
             {entry.data.twitchClipId && (
               <div class="mb-6 rounded-lg overflow-hidden bg-black">
                 <iframe
-                  src={`https://clips.twitch.tv/embed?clip=${entry.data.twitchClipId}&parent=${Astro.url.hostname}`}
+                  src={`https://clips.twitch.tv/embed?clip=${entry.data.twitchClipId}&parent=${domain}`}
                   height="400"
                   width="100%"
                   allowfullscreen
