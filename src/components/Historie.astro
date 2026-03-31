@@ -41,7 +41,14 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
       {sortedEntries.map(async (entry) => {
         const { Content } = await render(entry);
         const tagString = entry.data.tags.join(' ');
+        // Im Frontmatter deiner Astro-Komponente
         const { twitchClipId } = entry.data;
+
+        // Eindeutige ID für den Container generieren
+        const containerId = `twitch-container-${twitchClipId}`;
+
+        const thumbnailUrl = `https://clips-media-assets2.twitch.tv/${twitchClipId}-preview-480x272.jpg`;
+        const embedUrl = `https://clips.twitch.tv/embed?clip=${twitchClipId}&parent=projekt-medieninformatik.vercel.app&parent=localhost&autoplay=true&muted=false`;
 
         return (
           <div 
@@ -82,21 +89,44 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
             <StudiobauCard entry={entry} />
 
             {entry.data.twitchClipId && (
-              <div class="mb-6 rounded-lg overflow-hidden bg-black">
-                <div id="twitch-embed" class="w-full aspect-video bg-black/20 rounded-xl overflow-hidden"></div>
+             <div id={containerId} 
+                class="twitch-facade-container relative w-full aspect-video bg-black rounded-xl overflow-hidden cursor-pointer group border border-white/10 shadow-lg"
+                data-embed-url={embedUrl}>
+              
+              <img 
+                src={thumbnailUrl} 
+                alt="Twitch Clip Vorschau" 
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+              />
 
-                <script is:inline src="https://embed.twitch.tv/v1/embed.js"></script>
-
-                <script is:inline define:vars={{ twitchClipId }}>
-                  new Twitch.Embed("twitch-embed", {
-                    width: "100%",
-                    height: "100%",
-                    clip: twitchClipId,
-                    parent: ["projekt-medieninformatik.vercel.app", "localhost"],
-                    autoplay: false
-                  });
-                </script>
+              <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
+                <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white text-3xl shadow-xl transition-transform group-hover:scale-110">
+                  ▶
+                </div>
               </div>
+            </div>
+
+            <script is:inline define:vars={{ containerId }}>
+              // WICHTIG: Wir holen uns nur DIESEN EINEN Container
+              const facade = document.getElementById(containerId);
+
+              if (facade) {
+                facade.addEventListener('click', function() {
+                  const embedUrl = this.getAttribute('data-embed-url');
+                  
+                  const iframe = document.createElement('iframe');
+                  iframe.setAttribute('src', embedUrl);
+                  iframe.setAttribute('class', 'absolute inset-0 w-full h-full');
+                  iframe.setAttribute('allowfullscreen', 'true');
+                  iframe.setAttribute('allow', 'autoplay; fullscreen');
+                  
+                  this.innerHTML = '';
+                  this.appendChild(iframe);
+                  this.classList.remove('cursor-pointer');
+                });
+              }
+            </script>
             )}
             
             {entry.data.youtubeVideoId && (
