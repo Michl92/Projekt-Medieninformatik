@@ -41,6 +41,7 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
       {sortedEntries.map(async (entry) => {
         const { Content } = await render(entry);
         const tagString = entry.data.tags.join(' ');
+        const { twitchClipId } = entry.data;
 
         return (
           <div 
@@ -82,15 +83,19 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
 
             {entry.data.twitchClipId && (
               <div class="mb-6 rounded-lg overflow-hidden bg-black">
-                <iframe
-                  src={`https://clips.twitch.tv/embed?clip=${entry.data.twitchClipId}&parent=projekt-medieninformatik.vercel.app&autoplay=false&origin=https://projekt-medieninformatik.vercel.app`}
-                  height="400"
-                  width="100%"
-                  allowfullscreen="true"
-                  loading="lazy"
-                  sandbox="allow-all-origin; allow-scripts; allow-forms; allow-popups; allow-popups-to-escape-sandbox; allow-same-origin"
-                >
-                </iframe>
+                <div id="twitch-embed" class="w-full aspect-video bg-black/20 rounded-xl overflow-hidden"></div>
+
+                <script is:inline src="https://embed.twitch.tv/v1/embed.js"></script>
+
+                <script is:inline define:vars={{ twitchClipId }}>
+                  new Twitch.Embed("twitch-embed", {
+                    width: "100%",
+                    height: "100%",
+                    clip: twitchClipId,
+                    parent: ["projekt-medieninformatik.vercel.app", "localhost"],
+                    autoplay: false
+                  });
+                </script>
               </div>
             )}
             
