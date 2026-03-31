@@ -18,35 +18,30 @@ const rotations = [
 ];
 ---
 
+{gallery && gallery.length > 0 && (
+  <div class="flex flex-wrap gap-8 justify-center pb-8">
+    {gallery.map((imagePath: ImageMetadata, index: any) => {
+      // Wir nutzen den Index, um eine Rotation auszuwählen (wiederholt sich)
+      const rotationClass = rotations[index % rotations.length];
+      
+      // Jedes zweite Bild bekommt einen leichten negativen Z-Index,
+      // um den "Stapel"-Effekt zu verstärken
+      const zIndexClass = index % 2 === 0 ? 'z-10' : 'z-0';
 
-
-  {gallery && gallery.length > 0 && (
-    <div class="flex flex-wrap gap-8 justify-center pb-8">
-      {gallery.map((imagePath: ImageMetadata, index: any) => {
-        // Wir nutzen den Index, um eine Rotation auszuwählen (wiederholt sich)
-        const rotationClass = rotations[index % rotations.length];
-        
-        // Jedes zweite Bild bekommt einen leichten negativen Z-Index,
-        // um den "Stapel"-Effekt zu verstärken
-        const zIndexClass = index % 2 === 0 ? 'z-10' : 'z-0';
-
-        return (
-          <div class={`polaroid-container relative group ${rotationClass} ${zIndexClass} transition-transform duration-300 hover:rotate-0 hover:scale-105 hover:z-20`}>
-            
-            <div class="p-3 pb-10 bg-white shadow-xl rounded-sm border border-gray-200">
-              <Image 
-                src={imagePath} 
-                alt={`${title} Foto ${index + 1}`}
-                width={300}
-                height={300}
-                class="object-cover w-full h-48 md:h-56 rounded-sm border border-gray-100"
-              />
-            </div>
-            
-            <div class="absolute inset-0 bg-bonjwa-blue/30 opacity-0 group-hover:opacity-100 transition-opacity rounded-sm shadow-orange-glow pointer-events-none"></div>
-            
-          </div>
-        );
-      })}
-    </div>
-    )}
+      return (
+        <div class={`polaroid-container relative group ${rotationClass} ${zIndexClass} transition-transform duration-300 hover:rotate-0 hover:scale-105 hover:z-20`}>       
+          <div class="p-3 pb-10 bg-white shadow-xl rounded-sm border border-gray-200">
+            <Image 
+              src={imagePath} 
+              alt={`${title} Foto ${index + 1}`}
+              width={300}
+              height={300}
+              class="object-cover w-full h-48 md:h-56 rounded-sm border border-gray-100"
+            />
+          </div>   
+          <div class="absolute inset-0 bg-bonjwa-blue/30 opacity-0 group-hover:opacity-100 transition-opacity rounded-sm shadow-orange-glow pointer-events-none"></div>
+        </div>
+      );
+    })}
+  </div>
+  )}

@@ -6,19 +6,26 @@ body {
 }
 
 @theme {
-  /* Wir definieren die Farben direkt im CSS-Theme */
+  /* Definition der Farben */
   --color-bonjwa-green: #1e9761;
   --color-bonjwa-dark: #0f5636;
   --color-bonjwa-orange: #ff8a00;
   --color-bonjwa-accent: #2be994;
 
-  /* Fonts (Achtest du darauf, dass sie im Layout geladen werden?) */
-  --font-display: "Orbitron", sans-serif;
+  /* Fonts */
+  --font-display: "Orbitron", sans-serif, system-ui, sans-serif;
   --font-sans: "Inter", sans-serif;
 
-  /* Custom Glow-Effekte direkt als Utility */
+  /* Custom Glow-Effekte */
   --shadow-blue-glow: 0 0 15px rgba(0, 85, 170, 0.4);
   --shadow-orange-glow: 0 0 20px rgba(255, 138, 0, 0.5);
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('/fonts/inter-v12-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
 }
 
 /* Basis-Styling für den Gaming-Look */
@@ -37,7 +44,7 @@ body {
   }
   
   .filter-btn.active {
-    background-color: var(--color-bonjwa-orange); /* bonjwa-orange */
+    background-color: var(--color-bonjwa-orange);
     color: white;
     box-shadow: 0 0 15px rgba(255, 94, 0, 0.3);
   }

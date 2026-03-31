@@ -13,13 +13,14 @@ const backgroundImage = hero?.data?.backgroundImage;
 
   <div style="position: relative; text-align: center"  >
     {backgroundImage && <Image src={backgroundImage} alt="Hero Image" style='width: 100%; height: auto;' />}
-    <div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -10%);'>
-      <h1 style='color: white; font-size: 2.5em; margin-top: 20px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);'>
-        {title}
-      </h1>
-      <div  style='color: white; border-radius: 10px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);'>
+    <div style='position: absolute; top: 50%; left: 50%; transform: translate(-50%, -40%);'>
+        <h1 style='color: white; font-size: 3vw; line-height: 1.2; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);'>
+          {title}
+        </h1>
+      <div  style='color: white; font-size: 2vw; border-radius: 10px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);'>
         <Content />
       </div>
     </div>
   </div>
 </section>
+
