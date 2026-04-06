@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
-import StudiobauCard from './StudiobauCard.astro';
 import { Image } from 'astro:assets';
+import StudiobauCard from './StudiobauCard.astro';
+import TwitchClips from './TwitchClips.astro';
 
 const historieEntries = await getCollection('historie');
 const sortedEntries = historieEntries.sort((a, b) => 
@@ -41,16 +42,7 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
       {sortedEntries.map(async (entry) => {
         const { Content } = await render(entry);
         const tagString = entry.data.tags.join(' ');
-        // Im Frontmatter deiner Astro-Komponente
-        const { twitchClipId } = entry.data;
 
-        const embedUrlBase = `https://clips.twitch.tv/embed?clip=${twitchClipId}&autoplay=true&muted=false`;
-
-        // Eindeutige ID für den Container generieren
-        const containerId = `twitch-container-${twitchClipId}`;
-
-        const thumbnailUrl = `https://clips-media-assets2.twitch.tv/${twitchClipId}-preview-480x272.jpg`;
-        const embedUrl = `https://clips.twitch.tv/embed?clip=${twitchClipId}&parent=  projekt-medieninformatik-1wc1e9nio-michls-projects.vercel.app/&parent=localhost&autoplay=true&muted=false`;
 
         return (
           <div 
@@ -90,50 +82,8 @@ const allTags = [...new Set(historieEntries.flatMap(entry => entry.data.tags))].
 
             <StudiobauCard entry={entry} />
 
-            {entry.data.twitchClipId && (
-             <div id={containerId}  
-                class="twitch-facade-container relative w-full aspect-video bg-black rounded-xl overflow-hidden cursor-pointer group border border-white/10 shadow-lg"
-                data-embed-url={embedUrlBase}>
-              <img 
-                src={thumbnailUrl} 
-                alt="Twitch Clip Vorschau" 
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-              />
+            <TwitchClips entry={entry} />
 
-              <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/20 transition-colors">
-                <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center text-white text-3xl shadow-xl transition-transform group-hover:scale-110">
-                  ▶
-                </div>
-              </div>
-            </div>
-
-           <script is:inline define:vars={{ containerId }}>
-              const facade = document.getElementById(containerId);
-
-              if (facade) {
-                facade.addEventListener('click', function() {
-                  const embedUrlBase = this.getAttribute('data-embed-url');
-                  
-                  // DER TRICK: Wir nehmen die aktuelle Domain des Browsers (ohne Port/Protokoll)
-                  const currentHost = window.location.hostname;
-                  
-                  // Wir bauen die finale URL mit dem dynamischen Host als Parent
-                  const finalUrl = `${embedUrlBase}&parent=${currentHost}&parent=localhost`;
-                  
-                  const iframe = document.createElement('iframe');
-                  iframe.setAttribute('src', finalUrl);
-                  iframe.setAttribute('class', 'absolute inset-0 w-full h-full');
-                  iframe.setAttribute('allowfullscreen', 'true');
-                  iframe.setAttribute('allow', 'autoplay; fullscreen');
-                  
-                  this.innerHTML = '';
-                  this.appendChild(iframe);
-                  this.classList.remove('cursor-pointer');
-                });
-              }
-            </script>
-            )}
             
             {entry.data.youtubeVideoId && (
               <div class="mb-6 rounded-lg overflow-hidden bg-black">

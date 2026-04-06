@@ -1,15 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 
-// Angenommen, 'entry' ist dein Datensatz aus der Collection 'historie'
-// (genau wie im vorherigen Beispiel)
+// 'entry'  Datensatz aus der Collection 'historie'
 const { entry } = Astro.props;
 if (!entry) throw new Error("Kein Historien-Eintrag übergeben.");
 
 const { title, gallery } = entry.data;
 
 
-// Wir definieren verschiedene Rotationen für einen "zufälligen" Look
+// Rotationen für einen "zufälligen" Look
 const rotations = [
   'rotate-[-3deg]', // Leicht nach links
   'rotate-[4deg]',  // Leicht nach rechts
@@ -21,7 +20,7 @@ const rotations = [
 {gallery && gallery.length > 0 && (
   <div class="flex flex-wrap gap-8 justify-center pb-8">
     {gallery.map((imagePath: ImageMetadata, index: any) => {
-      // Wir nutzen den Index, um eine Rotation auszuwählen (wiederholt sich)
+      // Index, um eine Rotation auszuwählen 
       const rotationClass = rotations[index % rotations.length];
       
       // Jedes zweite Bild bekommt einen leichten negativen Z-Index,
